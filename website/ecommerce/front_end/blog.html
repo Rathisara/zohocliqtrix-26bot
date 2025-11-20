@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub - Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(#2c3e50);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffdd40;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-description {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #7f8c8d;
+            font-size: 18px;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .blog-posts {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-image {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #6a11cb;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .blog-meta i {
+            margin-right: 5px;
+            color: #6a11cb;
+        }
+        
+        .blog-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+        
+        .blog-excerpt {
+            color: #5a6b7c;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #6a11cb;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #2575fc;
+            transform: translateX(5px);
+        }
+        
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .widget-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #2c3e50;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: #5a6b7c;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .categories-list a:hover {
+            color: #6a11cb;
+        }
+        
+        .categories-list span {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .popular-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .popular-post {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .popular-post:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-post-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .popular-post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .popular-post-content h4 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .popular-post-content span {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #5a6b7c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: #6a11cb;
+            color: white;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .newsletter-form button {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            border-radius: 8px;
+            background: white;
+            color: #5a6b7c;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a.active, .pagination a:hover {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: #6a11cb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #6a11cb;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #6a11cb;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-sidebar {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .blog-meta span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+    <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script>
+    <script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqa413e1fd2a78de339236976dc54090645f8d7fd32941df8f7d363f55baa4334a" defer></script>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                ZenLuxe
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="sale.html">Sale</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>Fashion Blog</h2>
+        </div>
+        
+        <p class="section-description">
+            Stay updated with the latest fashion trends, styling tips, and industry insights from our expert team.
+        </p>
+        
+        <div class="blog-container">
+            <div class="blog-posts">
+                <!-- Blog Post 1 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZmFzaGlvbiUyMHRyZW5kc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Summer Fashion Trends">
+                        <div class="blog-category">Trends</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                            <span><i class="far fa-calendar"></i> June 15, 2023</span>
+                            <span><i class="far fa-comment"></i> 24 Comments</span>
+                        </div>
+                        <h3 class="blog-title">Top 10 Summer Fashion Trends You Need to Know</h3>
+                        <p class="blog-excerpt">
+                            Discover the hottest summer fashion trends that will keep you stylish and comfortable all season long. From vibrant colors to lightweight fabrics, we've got you covered.
+                        </p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 2 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b2ZmaWNlJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Office Fashion">
+                        <div class="blog-category">Style Guide</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> By Michael Chen</span>
+                            <span><i class="far fa-calendar"></i> June 10, 2023</span>
+                            <span><i class="far fa-comment"></i> 18 Comments</span>
+                        </div>
+                        <h3 class="blog-title">How to Dress Professionally While Expressing Your Personal Style</h3>
+                        <p class="blog-excerpt">
+                            Office fashion doesn't have to be boring. Learn how to incorporate your personal style into professional attire while maintaining a polished look.
+                        </p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Blog Post 3 -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3VzdGFpbmFibGUlMjBmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Sustainable Fashion">
+                        <div class="blog-category">Sustainability</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> By Emma Wilson</span>
+                            <span><i class="far fa-calendar"></i> June 5, 2023</span>
+                            <span><i class="far fa-comment"></i> 32 Comments</span>
+                        </div>
+                        <h3 class="blog-title">The Rise of Sustainable Fashion: What You Need to Know</h3>
+                        <p class="blog-excerpt">
+                            Explore how sustainable fashion is changing the industry and discover practical tips for building an eco-friendly wardrobe without compromising on style.
+                        </p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="blog-sidebar">
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Fashion Trends <span>12</span></a></li>
+                        <li><a href="#">Style Guides <span>8</span></a></li>
+                        <li><a href="#">Sustainability <span>5</span></a></li>
+                        <li><a href="#">Accessories <span>7</span></a></li>
+                        <li><a href="#">Seasonal Collections <span>10</span></a></li>
+                    </ul>
+                </div>
+                
+                <!-- Popular Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Popular Posts</h3>
+                    <div class="popular-posts">
+                        <div class="popular-post">
+                            <div class="popular-post-img">
+                                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZmFzaGlvbiUyMHRyZW5kc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Popular Post">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4>5 Must-Have Accessories for Summer 2023</h4>
+                                <span>May 28, 2023</span>
+                            </div>
+                        </div>
+                        <div class="popular-post">
+                            <div class="popular-post-img">
+                                <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Popular Post">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4>Men's Fashion: Breaking the Style Rules</h4>
+                                <span>May 20, 2023</span>
+                            </div>
+                        </div>
+                        <div class="popular-post">
+                            <div class="popular-post-img">
+                                <img src="https://images.unsplash.com/photo-1519455953757-75dd1c0ca4b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb24lMjB0cmVuZHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Popular Post">
+                            </div>
+                            <div class="popular-post-content">
+                                <h4>How to Build a Capsule Wardrobe</h4>
+                                <span>May 15, 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Tags</h3>
+                    <div class="tags">
+                        <a href="#" class="tag">Fashion</a>
+                        <a href="#" class="tag">Trends</a>
+                        <a href="#" class="tag">Style</a>
+                        <a href="#" class="tag">Summer</a>
+                        <a href="#" class="tag">Accessories</a>
+                        <a href="#" class="tag">Sustainability</a>
+                        <a href="#" class="tag">Wardrobe</a>
+                        <a href="#" class="tag">Tips</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Newsletter</h3>
+                    <p>Subscribe to our newsletter to get updates on our latest articles and promotions.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Men's Collection</a></li>
+                    <li><a href="#">Women's Collection</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Sale Items</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Affiliate Program</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p>Stay updated on new arrivals, sales and exclusive offers.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 StyleHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // In a real implementation, you would send this to your server
+            alert(`Thank you for subscribing with: ${email}`);
+            this.reset();
+        });
+        
+        // Popular posts interaction
+        const popularPosts = document.querySelectorAll('.popular-post');
+        
+        popularPosts.forEach(post => {
+            post.addEventListener('click', function() {
+                const postTitle = this.querySelector('h4').textContent;
+                alert(`Loading blog post: ${postTitle}`);
+            });
+        });
+        
+        // Category filtering
+        const categoryLinks = document.querySelectorAll('.categories-list a');
+        
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.textContent.split(' ')[0];
+                alert(`Filtering blog posts by category: ${category}`);
+            });
+        });
+    </script>
+</body>
+</html>
